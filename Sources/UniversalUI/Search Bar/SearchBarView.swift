@@ -7,13 +7,18 @@
 
 import SwiftUI
 
-struct SearchBarView: View {
+public struct SearchBarView: View {
     
     let placeholder: LocalizedStringKey
     @Binding var text: String
     @State private var isEditing = false
 
-    var body: some View {
+    public init(placeholder: LocalizedStringKey, text: Binding<String>) {
+        self.placeholder = placeholder
+        self._text = text
+    }
+    
+    public var body: some View {
         HStack {
             TextField(placeholder, text: $text)
                 .disableAutocorrection(true)
@@ -25,13 +30,18 @@ struct SearchBarView: View {
                 .overlay(searchBarOverlay)
                 .padding(.horizontal, 10)
                 .onTapGesture {
-                    isEditing = true
+                    withAnimation {
+                        isEditing = true
+                    }
                 }
             
             if isEditing {
                 Button {
-                    isEditing = false
-                    text = ""
+                    withAnimation {
+                        isEditing = false
+                        text = ""
+                    }
+
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                                     to: nil,
                                                     from: nil,
@@ -40,7 +50,7 @@ struct SearchBarView: View {
                     Text("Cancel")
                         .padding(.trailing, 10)
                         .transition(.move(edge: .trailing))
-                        .animation(.default)
+                        
                 }
             }
         }
@@ -63,11 +73,5 @@ struct SearchBarView: View {
                 }
             }
         }
-    }
-}
-
-struct SearchBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBarView(placeholder: "Search", text: .constant(""))
     }
 }

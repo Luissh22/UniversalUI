@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct RefreshableScrollView<Content: View>: UIViewRepresentable {
+public struct RefreshableScrollView<Content: View>: UIViewRepresentable {
     
     private let uiScrollView: UIScrollView
     private let uiRefreshControl: UIRefreshControl
     private let refreshAction: () -> Void
     
-    init(showsVerticalIndicator: Bool = true,
+    public init(showsVerticalIndicator: Bool = true,
          refreshAction: @escaping () -> Void,
          @ViewBuilder content: () -> Content) {
         
@@ -43,28 +43,28 @@ struct RefreshableScrollView<Content: View>: UIViewRepresentable {
     }
     
     
-    func makeUIView(context: Context) -> UIScrollView {
+    public func makeUIView(context: Context) -> UIScrollView {
         self.uiScrollView.refreshControl?.addTarget(context.coordinator,
                                                     action: #selector(context.coordinator.handleRefreshControl),
                                                     for: .valueChanged)
         return self.uiScrollView
     }
     
-    func updateUIView(_ uiView: UIScrollView, context: Context) {
+    public func updateUIView(_ uiView: UIScrollView, context: Context) {
         
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(withRefreshControl: uiRefreshControl, refreshAction: refreshAction)
     }
     
-    final class Coordinator {
+    final public class Coordinator {
         
         private let refreshControl: UIRefreshControl?
         private let refreshAction: () -> Void
         
         
-        init(withRefreshControl refreshControl: UIRefreshControl, refreshAction: @escaping () -> Void) {
+        public init(withRefreshControl refreshControl: UIRefreshControl, refreshAction: @escaping () -> Void) {
             self.refreshControl = refreshControl
             self.refreshAction = refreshAction
         }
