@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-extension Color {
+public extension Color {
     static var systemGroupedBackground = Color(UIColor.systemGroupedBackground)
     static var secondarySystemBackground = Color(UIColor.secondarySystemBackground)
     static var secondarySystemGroupedBackground = Color(UIColor.secondarySystemGroupedBackground)

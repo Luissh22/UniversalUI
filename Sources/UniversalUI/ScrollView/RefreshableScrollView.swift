@@ -14,8 +14,8 @@ public struct RefreshableScrollView<Content: View>: UIViewRepresentable {
     private let refreshAction: () -> Void
     
     public init(showsVerticalIndicator: Bool = true,
-         refreshAction: @escaping () -> Void,
-         @ViewBuilder content: () -> Content) {
+                refreshAction: @escaping () -> Void,
+                @ViewBuilder content: () -> Content) {
         
         self.refreshAction = refreshAction
         self.uiScrollView = UIScrollView()
